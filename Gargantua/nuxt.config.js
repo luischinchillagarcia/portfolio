@@ -1,11 +1,6 @@
 
 export default {
   /*
-  ** Nuxt rendering mode
-  ** See https://nuxtjs.org/api/configuration-mode
-  */
-  mode: 'universal',
-  /*
   ** Nuxt target
   ** See https://nuxtjs.org/api/configuration-target
   */
@@ -47,10 +42,16 @@ export default {
   buildModules: [
     // Doc: https://github.com/nuxt-community/nuxt-tailwindcss
     '@nuxtjs/tailwindcss',
+    "@nuxtjs/color-mode",
   ],
 
   tailwindcss: {
-    jit: true
+    jit: true,
+    exposeConfig: true
+  },
+
+  colorMode: {
+    classSuffix: ""
   },
   /*
   ** Nuxt.js modules
