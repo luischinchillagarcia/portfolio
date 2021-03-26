@@ -46,8 +46,12 @@ export default {
   ],
 
   tailwindcss: {
+    cssPath: '~/assets/css/tailwind.css',
+    configPath: 'tailwind.config.js',
     jit: true,
-    exposeConfig: true
+    exposeConfig: false,
+    config: {},
+    viewer: true
   },
 
   colorMode: {
@@ -57,7 +61,18 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
+    '@nuxtjs/axios'
   ],
+
+
+  axios: {
+    proxy: true // Can be also an object with default options
+  },
+
+  proxy: {
+    '/api-blah/': {target: 'https://jsonplaceholder.typicode.com/', pathRewrite: {'/api-blah/': ''}},
+  },
+
   /*
   ** Build configuration
   ** See https://nuxtjs.org/api/configuration-build/
