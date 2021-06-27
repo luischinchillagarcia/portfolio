@@ -1,17 +1,14 @@
+body {
+    background-color: #092140;
+}
+
+.bh-shadow {
+    box-shadow: 0px 1px 30px 0px rgba(255, 255, 255, 1);
+}
 
 .gravity {
     transform-origin: center;
-    animation: gravity-pull 3s linear 1s infinite running;
-}
-
-.delay-1 {
-    animation-delay: 0s;
-}
-.delay-2 {
-    animation-delay: 1s;
-}
-.delay-3 {
-    animation-delay: 2s;
+    animation: gravity-pull 1.8s linear 1s infinite running;
 }
 
 @keyframes gravity-pull {
@@ -19,6 +16,26 @@
         transform: scale(1.0) translateY(0px);
     }
     100% {
-        transform: scale(0.0) translateY(0px);
+        transform: scale(0.90) translateY(0px);
+    }
+}
+
+.stars-twinkle {
+    animation-name: star-twinkle;
+    /* animation-duration: 1.5s;  */
+    animation-timing-function: ease-in-out; 
+    animation-delay: 0s;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+    animation-fill-mode: none;
+    animation-play-state: running; 
+}
+
+@keyframes star-twinkle {
+    0% {
+        opacity: 1;
+    }
+    100% { 
+        opacity: .3;
     }
 }
