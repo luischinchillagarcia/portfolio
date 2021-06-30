@@ -33,9 +33,8 @@ const blackHoleConfig = {
   },
 }
 
-
 function BlackHole({ size, classes, cssUnit='px' }) {
-
+    
   const center = size / 2 
   const cc = center + cssUnit
   const boxSize = size  + cssUnit
