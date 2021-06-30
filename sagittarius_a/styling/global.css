@@ -22,7 +22,7 @@ body {
 
 .stars-twinkle {
     animation-name: star-twinkle;
-    /* animation-duration: 1.5s;  */
+    animation-duration: 1.5s; 
     animation-timing-function: ease-in-out; 
     animation-delay: 0s;
     animation-direction: alternate;
@@ -38,4 +38,15 @@ body {
     100% { 
         opacity: .3;
     }
+}
+
+
+.anim-delay-0 {
+    animation-delay: 0ms;
+}
+.anim-delay-1 {
+    animation-delay: 500ms;
+}
+.anim-delay-2 {
+    animation-delay: 700ms;
 }
