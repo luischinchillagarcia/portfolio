@@ -1,8 +1,10 @@
+import React, { useState, useEffect, useRef } from "react"
+import { motion } from "framer-motion"
+
 import BlackHole from '../components/BlackHole'
 import AddStaticStars from '../components/AddStaticStars'
 import AddMovingStars from '../components/AddMovingStars'
 import { DataGraph, Planet, Neuron, Database } from '../components/Icons'
-import { motion } from "framer-motion"
 
 
 const staticStarsConfig = {
@@ -17,53 +19,109 @@ const movingStarsConfig = {
 const labelsConfig = [
   {
     component: Database,
-    descr: 'a Data Engineer'
+    descr: 'a Data Engineer',
+    delay: 'wigglw',
   },
   {
     component: DataGraph,
-    descr: 'a Data Scientist'
+    descr: 'a Data Scientist',
+    delay: 'pulse-2',
   },
   {
     component: Neuron,
-    descr: 'a Machine Learning Engineer'
+    descr: 'a Machine Learning Engineer',
+    delay: 'pulse-3',
   },
   {
     component: Planet,
-    descr: 'an Astrophysicist'
+    descr: 'an Astrophysicist',
+    delay: 'pulse-4',
   },
 ]
 
 function AddLabels() {
   return (
-    <>
+    <ul>
       {
         labelsConfig.map((config, index) => (
-          <div className="flex h-8 pb-12 pl-10" key={index}>
-            <config.component />
-            <p className="pb-8 pl-4 text-2xl text-white"> { config.descr } </p>
-          </div>
+          <li className={'flex gap-3 py-3 pl-3 text-lg duration-75 md:py-3 ' + config.delay} key={'blackHoleBullet-' + index}>
+            <div className="w-1/12 h-full lg:w-12">
+              <config.component />
+            </div>
+            <p className="h-full text-white"> { config.descr } </p>
+          </li>
         ))
       }
+    </ul>
+  )
+}
+
+function TextContainer() {
+
+  return (
+    <div className="p-5 text-xl text-white bg-white border border-white rounded-lg bg-opacity-10 lg:w-7/12">
+      <p>
+        Luis Chinchilla-Garcia, and I am:
+      </p>
+      <div className="md:pl-8">
+        <AddLabels />
+      </div>
+    </div>
+  )
+}
+
+function Home() {
+  return (
+    <>
+      <div className="w-full">
+        
+        {/* <AddMovingStars {...movingStarsConfig} /> */}
+        <div className="w-full pb-8 mx-auto font-custom1">
+          <div className="relative w-full">
+            
+            {/* <BlackHole size={850} cssUnit="px" classes="m-auto w-1/2" /> */}
+            
+            <div className="w-full max-w-md pl-40">
+              <p className="pb-6 text-3xl text-white">Luis Chinchilla-Garcia, and I am: </p>
+              { AddLabels() }
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   )
 }
 
-export default function Home() {
+
+export default function Home2() {
+  
+  const [windowSize, setWindowSize] = useState(null)
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const handleResize = () => setWindowSize(window.innerWidth)
+      
+      window.addEventListener("resize", handleResize)
+      handleResize()
+      const listenerCleanup = () => window.removeEventListener("resize", handleResize)
+      
+      return listenerCleanup
+    }
+  }, [])
+
+  const bhSize = (windowSize && windowSize > 700) ? 700 : windowSize
+
   return (
     <>
-      <div className="w-screen pb-8 mx-auto font-serif" style={{maxWidth: 1400 + 'px'}}>
-        <AddStaticStars {...staticStarsConfig} />
-        <div className="relative w-full">
-          
-          <BlackHole size={850} cssUnit="px" classes="m-auto w-1/2" />
-          <AddMovingStars {...movingStarsConfig} />
-          
-          <div className="pl-40">
-            <p className="pb-3 text-3xl text-white">Luis Chinchilla-Garcia, and I am: </p>
-            { AddLabels() }
-          </div>
+    <AddStaticStars {...staticStarsConfig} />
+    <div className="">
+      <BlackHole size={bhSize || 400} cssUnit="px" classes="m-auto w-1/2" /> 
+      <div className="flex justify-center w-full text-white min-h-64 font-custom1 px-auto">
+        <div className="max-w-5xl py-3 md:py-10 md:w-6/12">
+          <TextContainer />
         </div>
       </div>
+    </div>
     </>
   )
 }
