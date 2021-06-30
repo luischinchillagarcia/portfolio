@@ -4,6 +4,12 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {},
+    fontFamily: {
+      'custom1': 'Colfax'
+    },
+    transitionProperty: {
+      'transition-visibility': 'transition-visibility'
+    },
   },
   variants: {
     extend: {},
