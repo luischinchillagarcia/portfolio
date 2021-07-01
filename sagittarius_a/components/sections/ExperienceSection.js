@@ -245,7 +245,7 @@ function Tooltip({ name, title, body, show }) {
   )
 
   const tagClasses = {
-    setup: 'px-4 py-1 rounded-xl border bg-opacity-10 bg-green-200 ',
+    setup: 'px-4 py-1 rounded-xl border bg-opacity-10 bg-green-200 hover:bg-gray-600 ',
     text: 'text-sm font-medium text-white font-custom1  ',
     animation: show ? 'hover:bg-green-800 active:bg-green-900 focus:outline-none focus:border-green-200 transition-all ' : ' '
   }
@@ -260,111 +260,24 @@ function Tooltip({ name, title, body, show }) {
   return (
     <div className="flex flex-col flex-wrap items-center md:flex-row md:justify-center">
       <div className="relative" onMouseEnter={hoverEnterHandler} onMouseLeave={hoverLeaveHandler}>
-          { tag }
-          { (tooltipStatus == 3) && show && tooltipContent }
+        { tag }
+        { (tooltipStatus == 3) && show && tooltipContent }
       </div>
     </div>
   )
 }
 
-const configTabs = {
-  title: 'Skills and Experience',
-  tabs: [
-    {
-      tabName: 'link',
-      tabText: 'Machine Learning Engineering',
-      text: {
-        head: 'For Machine Learning Engineering, some of my responsibilities have included:', 
-        body: [
-          'Actively researching and prototyping machine learning models to personalize product recommendations', 
-          'Deploying machine learning models on cloud services as part of an end-to- end machine learning workflow',
-          'Developing & maintaining end-to-end machine learning pipelines that are scalable and cost effective',
-        ],
-        tags: [
-          {name: 'Tensorflow', title: '', body: '', show: false}, 
-          {name: 'Scikit-Learn', title: '', body: '', show: false},
-          {name: 'Tensorflow Probability', title: '', body: '', show: false},
-          {name: 'Numpy', title: '', body: '', show: false},
-          {name: 'Pandas', title: '', body: '', show: false},
-        ],
-      },
-    },
-    {
-      tabName: 'link',
-      tabText: 'Data Engineering',
-      text: {
-        head: 'For Data Engineering, some of my responsibilities have included:', 
-        body: [
-          'Deploying machine learning models on cloud services as part of an end-to- end machine learning workflow', 
-          'Collaborating with back-end engineers to integrate APIs and micro-services with the platforms',
-          'Creating efficient and scalable ETL pipelines for machine learning models',
-        ],
-        tags: [
-          {name: 'SQL', title: '', body: 'blah', show: false}, 
-          {name: 'BigQuery', title: '', body: 'blah', show: false},
-          {name: 'Python', title: '', body: 'blah', show: false},
-          {name: 'Pandas', title: '', body: 'blah', show: false},
-          {name: 'Tensorflow', title: '', body: 'blah', show: false},
-          {name: 'Tensorflow-Extended', title: '', body: 'blah', show: false},
-          {name: 'GCP', title: '', body: 'blah', show: false},
-          {name: 'Docker', title: '', body: 'blah', show: false},
-        ],
-      },
-    },
-    {
-      tabName: 'link',
-      tabText: 'Data Science',
-      text: {
-        head: 'For Data Analysis, some of my responsibilities have included:', 
-        body: [
-          'Creating repeatable exploratory data analysis in Jupyter notebooks, with visualizations to aid the story-telling process of data', 
-          'Integrating model analysis using rigorous mathematical methods',
-          'Analyzing machine learning performance',
-        ],
-        tags: [
-          {name: 'Python', title: '', body: 'blah', show: false}, 
-          {name: 'Pandas', title: '', body: 'blah', show: false}, 
-          {name: 'Tensorflow', title: '', body: 'blah', show: false}, 
-          {name: 'SQL', title: '', body: 'blah', show: false}, 
-          {name: 'Apache Beam', title: '', body: 'blah', show: false},
-          {name: 'LaTex', title: '', body: 'blah', show: false},
-        ],
-      },
-    },
-    {
-      tabName: 'link',
-      tabText: 'Web Development',
-      text: {
-        head: 'For Web Development, some of my responsibilities have included:', 
-        body: [
-          'Implementing major features that increased scalability while reducing latency', 
-          'Researching and integrating machine learning models to personalize UI'
-        ],
-        tags: [
-          {name: 'Javascript', title: '', body: 'blah', show: false}, 
-          {name: 'Typescript', title: '', body: 'blah', show: false},
-          {name: 'HTML/Haml', title: '', body: 'blah', show: false},
-          {name: 'CSS/SCSS', title: '', body: 'blah', show: false},
-          {name: 'Vue', title: '', body: 'blah', show: false},
-          {name: 'Nuxt', title: '', body: 'blah', show: false},
-          {name: 'ReactJS', title: '', body: 'blah', show: false},
-          {name: 'NextJS', title: '', body: 'blah', show: false},
-        ],
-      },
-    },
-  ]
-}
 
-export default function Hello() {
+function ExperienceSection({ experienceConfig }) {
 
   const [openTab, setOpenTab] = useState(1)
 
   return (
     <div className="">
       <ContainersWrapper
-        title={configTabs.title}
-        container1={<Container1 openTab={openTab} setOpenTab={setOpenTab} configTabs={configTabs.tabs} />} 
-        container2={<Container2 openTab={openTab} configTabs={configTabs.tabs} />} 
+        title={experienceConfig.title}
+        container1={<Container1 openTab={openTab} setOpenTab={setOpenTab} configTabs={experienceConfig.tabs} />} 
+        container2={<Container2 openTab={openTab} configTabs={experienceConfig.tabs} />} 
       />
 
       <br />
@@ -374,4 +287,5 @@ export default function Hello() {
   )
 }
 
+export default ExperienceSection
 

@@ -1,15 +1,15 @@
-function Content() {
+function Content({ config }) {
 
   const divider = <div className="w-12 h-1 mx-auto mb-4 bg-white" />
 
   return (
     <div className="flex flex-col justify-center gap-1 mx-4">
-      <h1 class="text-lg text-center font-semibold">
-        Contact me 
+      <h1 className="text-lg font-semibold text-center">
+        { config.title }
       </h1>
       { divider }
-      <p class="text-sm text-center mb-3">
-        I'm always open for discussions, so feel free to contact me!
+      <p className="mb-3 text-sm text-center">
+        { config.body }
       </p>
     </div>
   )
@@ -23,24 +23,25 @@ function Button({ text }) {
   )
 }
 
-function Wrapper() {
+
+function Wrapper({ config }) {
   return (
     <div className="mx-10 text-white my-7">
-      <Content />
+      <Content config={config} />
       <div className="flex justify-center gap-4">
-        <Button text={'Email'} />
-        <Button text={'Resume'} />
+        <Button text={config.button1} />
+        <Button text={config.button2} />
       </div>
     </div>
   )
 }
 
-function ContactMe() {
+function ContactMe({ contactConfig }) {
 
   return (
     <div className="flex justify-center font-custom1">
       <div className="flex justify-center max-w-lg m-4 bg-gray-200 bg-opacity-10">
-        <Wrapper />
+        <Wrapper config={contactConfig} />
       </div>
     </div>
   )

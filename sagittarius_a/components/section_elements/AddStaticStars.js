@@ -3,6 +3,7 @@ import StaticStar from './StaticStar'
 
 import { motion } from "framer-motion"
 
+
 function AnimationWrapper({ children, duration=2, delay=0, useMotion=false }) {
 
   const transitionConfig = {
@@ -80,7 +81,7 @@ function AddStaticStars({ numStars, gapLo=45, gapHi=55, size=20, sizeVar=10, opa
           <AnimationWrapper key={'staticStar-' + index} {...wrapperStyles(conf)} useMotion={useMotion} >
             <StaticStar
               cssUnit="px" classes={allClasses + ` anim-delay-${index % 3}`} size={conf.size} left={conf.left} top={conf.top} opacity={conf.opacity}
-              style={{ animationDuration: conf.duration }}
+              style={{ animationDuration: index % 2 / 4, animationDelay: index % 2 / 4 }}
             />
           </AnimationWrapper>
         ))
