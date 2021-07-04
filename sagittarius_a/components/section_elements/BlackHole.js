@@ -8,14 +8,15 @@ const blackHoleConfigs = {
   inner: [
     // { r: 0.50, opacity: 0.2, color: '#fefce6', classes: 'bh-shadow ',        style: {animationDelay: 0} },
     // { r: 0.30, opacity: 0.2, color: '#fefce6', classes: 'bh-shadow ',        style: {animationDelay: 0} },
-    { r: 0.50, opacity: 0.4, color: '#fefce6', classes: 'bh-shadow gravity', style: {animationDelay: 500 + 'ms'} },
-    { r: 0.40, opacity: 0.4, color: '#fefce6', classes: 'bh-shadow gravity', style: {animationDelay: 300 + 'ms'} },
-    { r: 0.26, opacity: 0.7, color: '#fefce6', classes: 'bh-shadow gravity', style: {animationDelay: 0   + 'ms'} },
+    { r: 0.50, opacity: 0.4, color: '#fefce6', classes: 'bh-shadow gravity ', style: {animationDelay: 500 + 'ms'} },
+    { r: 0.40, opacity: 0.4, color: '#fefce6', classes: 'bh-shadow gravity ', style: {animationDelay: 300 + 'ms'} },
+    { r: 0.26, opacity: 0.7, color: '#fefce6', classes: 'bh-shadow gravity ', style: {animationDelay: 0   + 'ms'} },
   ],
   nucleus: [
     { r: .20, opacity: 1.0, color: 'black', classes: '', style: {}  },
   ],
 }
+
 
 function CreateRings({ ringsConfigs, centerPos, center, addUnit, keyPrefix }) {
   
@@ -39,7 +40,8 @@ function CreateRings({ ringsConfigs, centerPos, center, addUnit, keyPrefix }) {
   )
 }
 
-function BlackHole({ size, classes, children, cssUnit='px' }) {
+
+function BlackHole({ size, classes, textContainer, downArrow, cssUnit='px' }) {
   
   const addUnit = (value) => `${Math.abs(value)}${cssUnit}`
   
@@ -61,17 +63,23 @@ function BlackHole({ size, classes, children, cssUnit='px' }) {
   )
 
   return (
-    <div className={classes} style={{width: boxSizePos, height: boxSizePos}}>
-      <div className="absolute left-0 w-full text-lg text-white bottom-60 md:bottom-32 ">
-        { children }
+    <div className={classes + ' '} style={{width: boxSizePos, height: boxSizePos}}>
+      <div className="opacity-0 startup-anim" style={{animationDuration: 3 + 's'}}>
+        <svg width={boxSizePos} height={boxSizePos} fill="none" xmlns="http://www.w3.org/2000/svg">
+          { outerRingsDisplay }
+          { innerRingsDisplay }
+          { nucleusDisplay    }
+        </svg>
       </div>
-      <svg width={boxSizePos} height={boxSizePos} fill="none" xmlns="http://www.w3.org/2000/svg">
-        { outerRingsDisplay }
-        { innerRingsDisplay }
-        { nucleusDisplay    }
-      </svg>
+      <div className="absolute left-0 w-full text-lg text-white delay-200 bottom-60 md:bottom-32 startup-anim ">
+        { textContainer }
+      </div>
+      <div className="absolute bottom-0 left-0 w-full text-lg text-white ">
+        { downArrow }
+      </div>
     </div>
   )
 }
+
 
 export default BlackHole
