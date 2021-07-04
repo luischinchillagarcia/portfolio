@@ -4,7 +4,7 @@ import Link from 'next/link'
 function ArtAsset() {
   return (
     <svg width="450" height="338" viewBox="0 0 450 338" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <g clip-path="url(#clip0)">
+      <g clipPath="url(#clip0)">
         <path
           d="M321.749 231.118C321.749 261.706 304.982 272.387 284.299 272.387C263.616 272.387 246.849 261.706 246.849 231.118C246.849 200.529 284.299 161.616 284.299 161.616C284.299 161.616 321.749 200.529 321.749 231.118Z"
           fill="#E7D040" />
@@ -101,17 +101,17 @@ function ArtAsset() {
 function DefaultSection({ config }) {
 
   return (
-    <div class="bg-black text-white">
-      <div class="flex h-screen">
-        <div class="m-auto text-center">
+    <div className="text-white bg-black">
+      <div className="flex h-screen">
+        <div className="m-auto text-center">
           <div>
             <ArtAsset />
           </div>
-          <p class="text-sm md:text-base text-yellow-300 p-2 mb-4">
+          <p className="p-2 mb-4 text-sm text-yellow-300 md:text-base">
             { config.text }
           </p>
           <Link href={config.route}>
-            <a class="bg-transparent hover:bg-yellow-300 text-yellow-300 hover:text-white rounded shadow hover:shadow-lg py-2 px-4 border border-yellow-300 hover:border-transparent">
+            <a className="px-4 py-2 text-yellow-300 bg-transparent border border-yellow-300 rounded shadow hover:bg-yellow-300 hover:text-white hover:shadow-lg hover:border-transparent">
               { config.button }
             </a>
           </Link>

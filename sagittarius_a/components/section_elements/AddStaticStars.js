@@ -68,7 +68,7 @@ function AddStaticStars({ numStars, gapLo=45, gapHi=55, size=20, sizeVar=10, opa
       starConfigs.push({left, top, size, opacity, duration})
     }
     setConfigs(starConfigs)
-  }, []);
+  }, [])
 
   let allClasses = classes + ' absolute ' //+ ' animate-pulse '// + ' stars-twinkle '
   allClasses += useMotion ? '' : ' stars-twinkle '
