@@ -2,10 +2,29 @@ import React, { useState, useEffect } from "react"
 import { Transition } from "react-transition-group"
 import { motion } from "framer-motion"
 
+import DownArrow from '../section_elements/DownArrow'
 
-function ContainersWrapper({ title, container1, container2 }) {
+
+function ExperienceSection({ experienceConfig }) {
+
+  const [openTab, setOpenTab] = useState(1)
 
   const outerSizing = 'flex flex-col justify-center h-full font-custom1'
+
+  return (
+    <div className={outerSizing}>
+      <ContainersWrapper
+        title={experienceConfig.title}
+        tabsContainer={<TabsContainer openTab={openTab} setOpenTab={setOpenTab} configTabs={experienceConfig.tabs} />} 
+        contentContainer={<ContentContainers openTab={openTab} configTabs={experienceConfig.tabs} />} 
+      />
+      <DownArrow scrollSection={experienceConfig.scrollSection}/>
+    </div>
+  )
+}
+
+
+function ContainersWrapper({ title, tabsContainer, contentContainer }) {
   
   const wrapperClasses = {
     setup: 'flex flex-col sm:flex-row justify-center ',
@@ -24,39 +43,46 @@ function ContainersWrapper({ title, container1, container2 }) {
     heights: 'h-full sm:h-full overflow-y-auto ',
   }
 
-  const titleContainer = (
-    <div className="flex flex-col justify-center">
-      <p className="text-3xl text-white">
-          { title }
-      </p>
-      <div className="flex justify-center mt-2">
-        <div className="w-16 h-1 bg-gray-400 animate-bounce" />
-      </div>
-    </div>
-  )
-
   return (
     <>
-      <div className={outerSizing}>
-        <div className="flex justify-center">
-          { titleContainer }
-        </div>
-        <div className="flex justify-center">
-          <div className={wrapperClasses.setup + wrapperClasses.heights + wrapperClasses.widths}>
-            <div className={container1Classes.setup + container1Classes.widths + container1Classes.heights}>
-              { container1 }
-            </div>
-            <div className={container2Classes.setup + container2Classes.widths + container2Classes.heights}>
-              { container2 }
-            </div>
+      <TitleContainer title={title} />
+      <div className="flex justify-center">
+        <div className={wrapperClasses.setup + wrapperClasses.heights + wrapperClasses.widths}>
+          <div className={container1Classes.setup + container1Classes.widths + container1Classes.heights}>
+            { tabsContainer }
+          </div>
+          <div className={container2Classes.setup + container2Classes.widths + container2Classes.heights}>
+            { contentContainer }
           </div>
         </div>
       </div>
     </>
-  );
+  )
 }
 
-function Container1({ openTab, setOpenTab, configTabs }) {
+
+function TitleContainer({ title }) {
+
+  const textUnderline = (
+    <div className="flex justify-center mt-2">
+      <div className="w-16 bg-gray-400 animate-bounce" style={{height: 2 + 'px'}} />
+    </div>
+  )
+
+  return (
+    <div className="flex justify-center">
+      <div className="flex flex-col justify-center">
+        <p className="text-3xl text-white">
+            { title }
+        </p>
+        { textUnderline }
+      </div>
+    </div>
+  )
+}
+
+
+function TabsContainer({ openTab, setOpenTab, configTabs }) {
 
   const buttonSetup = 'text-white '
   const buttonHeights = 'h-full '
@@ -67,8 +93,8 @@ function Container1({ openTab, setOpenTab, configTabs }) {
       {
         configTabs.map((config, index) => {
           return (
-            <li key={'tab-' + index} className={buttonSetup + buttonHeights + buttonWidths}>
-              <Container1Tab openTab={openTab} tabNum={index + 1} tabName={config.tabName} setOpenTab={setOpenTab} tabText={config.tabText} />
+            <li key={'experience-tab-' + index} className={buttonSetup + buttonHeights + buttonWidths}>
+              <TabContainer openTab={openTab} tabNum={index + 1} tabName={config.tabName} setOpenTab={setOpenTab} tabText={config.tabText} />
             </li>
           )
         })
@@ -77,21 +103,22 @@ function Container1({ openTab, setOpenTab, configTabs }) {
   )
 }
 
-function Container1Tab({ openTab, tabNum, tabName, setOpenTab, tabText }) {
+
+function TabContainer({ openTab, tabNum, tabName, setOpenTab, tabText }) {
   
     const isActiveHandler = e => {
-      e.preventDefault();
+      e.preventDefault()
       setOpenTab(tabNum)
     }
   
-    const href = `#${tabName}${tabNum}`
+    const hrefButton = `#${tabName}${tabNum}`
 
     const wrapperClasses = {
       size: 'w-full h-full ',
       flex: 'flex justify-center items-center ', 
       shape: 'shadow-lg leading-normal sm:rounded-l-xl block ', 
       text: 'text-center text-xs text-white invisible sm:visible ', 
-      animation: 'transition duration-500 ease-in-out hover:bg-green-100 hover:bg-opacity-10 transform hover:-translate-y-1 hover:scale-110 '
+      animation: 'transition duration-500 ease-in-out hover:bg-green-100 hover:bg-opacity-10 transform '
     }
     const activeClasses = {
       general: 'bg-green-100 bg-opacity-10 ',
@@ -106,52 +133,60 @@ function Container1Tab({ openTab, tabNum, tabName, setOpenTab, tabText }) {
     const textClasses = 'text-center text-xs text-white invisible sm:visible '
   
     return (
-      <a
-        className={
-          wrapperClasses.size + wrapperClasses.flex + wrapperClasses.shape + wrapperClasses.animation
-          + isActiveClasses.general + isActiveClasses.border
-        }
-        onClick={isActiveHandler}
-        data-toggle="tab"
-        href={href}
-        role="tablist"
+      <AddAnimationButton 
+        hrefButton={hrefButton} 
+        isActiveHandler={isActiveHandler} wrapperClasses={wrapperClasses} isActiveClasses={isActiveClasses}
       >
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.9 }}
-        >
           <p className={textClasses}>
             { tabText }
           </p>
-        </motion.button>
-      </a>
+      </AddAnimationButton>
     )
 }
 
-function Container2({ openTab, configTabs }) {
+
+function AddAnimationButton({ hrefButton, isActiveHandler, wrapperClasses, isActiveClasses, children }) {
+  return (
+    <motion.button
+      whileHover={{ scale: 1.05, transition: { duration: 0.008 }, }}
+      whileTap={{ scale: 0.9, transition: { duration: 0.008 }, }}
+      onClick={isActiveHandler}
+      className={
+        wrapperClasses.size + wrapperClasses.flex + wrapperClasses.shape + wrapperClasses.animation
+        + isActiveClasses.general + isActiveClasses.border
+      }
+    >
+      <a href={hrefButton}>
+        { children }
+      </a>
+    </motion.button>
+  )
+}
+
+
+function ContentContainers({ openTab, configTabs }) {
 
   const sizeClasses = 'w-4/5 min-w-0 mb-6 '
   const textClasses = 'text-white break-words '
   const generalClasses = 'relative flex flex-col '
 
-  const container2Content = configTabs.map((config, index) => {
-    return (
-      <Container2Content key={'cont2Text-' + index} openTab={openTab} tabNum={index + 1} tabName={config.tabName} text={config.text} />
-    )
-  })
-
   return (
     <div className={generalClasses + sizeClasses + textClasses}>
       <div className="flex-auto px-4 py-5">
         <div className="tab-content tab-space">
-          { container2Content }
+          { 
+            configTabs.map((config, index) => (
+              <ContentContainer key={'cont2Text-' + index} openTab={openTab} tabNum={index + 1} tabName={config.tabName} text={config.text} />
+            )) 
+          }
         </div>
       </div>
     </div>
   )
 }
 
-function Container2Content({ openTab, tabNum, tabName, text }) {
+
+function ContentContainer({ openTab, tabNum, tabName, text }) {
 
   const [isVisible, setIsVisible] = useState(false)
 
@@ -172,10 +207,6 @@ function Container2Content({ openTab, tabNum, tabName, text }) {
     </li>
   ))
 
-  const tags = text.tags.map((tag, index) => (
-    <Tooltip key={'tags-' + index} name={tag.name} title={tag.title} body={tag.body} show={tag.show} />
-  ))
-
   const duration = 500
   const defaultStyle = {
     transition: `opacity ${duration}ms ease-in-out`,
@@ -189,25 +220,33 @@ function Container2Content({ openTab, tabNum, tabName, text }) {
   }
 
   return (
-      <Transition in={isVisible} timeout={500}>
-        {state => (
-          <div className={wrapperClasses.setup + wrapperClasses.visibility} id={href} style={{...defaultStyle, ...transitionStyles[state]}}>
-            <p className="pb-3" > 
-              { text.head }
-            </p>
-            <ul style={{listStyle: 'circle'}} >
-              { bulletPoints }
-            </ul>
-            <div className="flex flex-wrap justify-center gap-3 mt-7">
-              { tags }
-            </div>
+    <Transition in={isVisible} timeout={500}>
+      {state => (
+        <div 
+          className={wrapperClasses.setup + wrapperClasses.visibility} id={href} 
+          style={{...defaultStyle, ...transitionStyles[state]}}
+        >
+          <p className="pb-3"> 
+            { text.head }
+          </p>
+          <ul style={{listStyle: 'circle'}} >
+            { bulletPoints }
+          </ul>
+          <div className="flex flex-wrap justify-center gap-3 mt-7">
+            {
+              text.tags.map((tag, index) => (
+                <TagContainer key={'tags-' + index} name={tag.name} title={tag.title} body={tag.body} show={tag.show} />
+              ))
+            }
           </div>
-        )}
-      </Transition>
+        </div>
+      )}
+    </Transition>
   )
 }
 
-function Tooltip({ name, title, body, show }) {
+
+function TagContainer({ name, title, body, show }) {
 
   const [tooltipStatus, setTooltipStatus] = useState(0)
 
@@ -234,14 +273,14 @@ function Tooltip({ name, title, body, show }) {
   }
   const tooltipContent = (
     <div role="tooltip" className={tooltipClasses.setup + tooltipClasses.animation + tooltipClasses.position}>
-        { tooltipWrapper }
-        <p className="pb-1 text-sm font-bold text-white">
-          { title }
-        </p>
-        <p className="pb-3 text-xs leading-4 text-white">
-          { body }
-        </p>
-      </div>
+      { tooltipWrapper }
+      <p className="pb-1 text-sm font-bold text-white">
+        { title }
+      </p>
+      <p className="pb-3 text-xs leading-4 text-white">
+        { body }
+      </p>
+    </div>
   )
 
   const tagClasses = {
@@ -268,24 +307,4 @@ function Tooltip({ name, title, body, show }) {
 }
 
 
-function ExperienceSection({ experienceConfig }) {
-
-  const [openTab, setOpenTab] = useState(1)
-
-  return (
-    <div className="">
-      <ContainersWrapper
-        title={experienceConfig.title}
-        container1={<Container1 openTab={openTab} setOpenTab={setOpenTab} configTabs={experienceConfig.tabs} />} 
-        container2={<Container2 openTab={openTab} configTabs={experienceConfig.tabs} />} 
-      />
-
-      <br />
-
-      {/* <Tooltip /> */}
-    </div>
-  )
-}
-
 export default ExperienceSection
-
