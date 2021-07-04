@@ -29,6 +29,39 @@ const swipePower = (offset, velocity) => {
   return Math.abs(offset) * velocity
 }
 
+function AddAnimationImages({ page, direction, currImage, paginate }) {
+
+  return (
+    <AnimatePresence initial={false} custom={direction} exitBeforeEnter>
+      <motion.img
+        key={page}
+        src={currImage}
+        custom={direction}
+        variants={variants}
+        initial="enter"
+        animate="center"
+        exit="exit"
+        transition={{
+          x: { type: "spring", stiffness: 300, damping: 30 },
+          opacity: { duration: 0.5 }
+        }}
+        drag="x"
+        dragConstraints={{ left: 0, right: 0 }}
+        dragElastic={1}
+        onDragEnd={(e, { offset, velocity }) => {
+          const swipe = swipePower(offset.x, velocity.x)
+
+          if (swipe < -swipeConfidenceThreshold) {
+            paginate(1)
+          } else if (swipe > swipeConfidenceThreshold) {
+            paginate(-1)
+          }
+        }}
+      />
+    </AnimatePresence>
+  )
+}
+
 function AddMotion({ children }) {
   return (
     <motion.button
@@ -42,6 +75,7 @@ function AddMotion({ children }) {
 }
 
 function SlideShow({ images }) {
+
   const [[page, direction], setPage] = useState([0, 0])
   const imageIndex = wrap(0, images.length, page)
 
@@ -51,37 +85,17 @@ function SlideShow({ images }) {
 
   return (
     <>
-      <div className="flex flex-col items-center gap-2 align-middle h-9/12">
-        <div className="flex items-center align-middle">
-          <AnimatePresence initial={false} custom={direction} exitBeforeEnter>
-          <motion.img
-            key={page}
-            src={images[imageIndex]}
-            custom={direction}
-            variants={variants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={{
-              x: { type: "spring", stiffness: 300, damping: 30 },
-              opacity: { duration: 0.5 }
-            }}
-            drag="x"
-            dragConstraints={{ left: 0, right: 0 }}
-            dragElastic={1}
-            onDragEnd={(e, { offset, velocity }) => {
-              const swipe = swipePower(offset.x, velocity.x)
-
-              if (swipe < -swipeConfidenceThreshold) {
-                paginate(1)
-              } else if (swipe > swipeConfidenceThreshold) {
-                paginate(-1)
-              }
-            }}
+      <div className="flex flex-col items-center h-full gap-2 align-middle">
+        <div className="flex items-center h-full align-middle">
+          <AddAnimationImages 
+            page={page} direction={direction} 
+            currImage={images[imageIndex]} paginate={paginate} 
           />
-        </AnimatePresence>
         </div>
-        <div className="flex items-center justify-between gap-2 align-middle h-7" onClick={() => paginate(-1)}>
+        <div 
+          className="flex items-center justify-between gap-2 align-middle h-7" 
+          onClick={() => paginate(-1)}
+        >
           <AddMotion>
             <div className="flex items-center justify-center h-full text-xl text-white align-middle bg-white rounded-lg w-11 bg-opacity-10">
               <p style={{transform: 'scale(-1) translateY(3px)'}}>{"▶"}</p>
