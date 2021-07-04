@@ -22,6 +22,53 @@ body {
     }
 }
 
+.down-arrow {
+    transform-origin: center;
+    animation: down-arrow .8s cubic-bezier(0,.71,.12,.97) 1s infinite alternate running;
+}
+
+@keyframes down-arrow {
+    0% {
+        transform: translate(0px, 0px);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(0px, -12px);
+        opacity: .6;
+    }
+}
+
+.startup-anim {
+    animation: startup-anim 2s forwards;
+}
+
+.startup-anim-rings {
+    animation: startup-anim 2s forwards;
+}
+
+@keyframes startup-anim {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.down-arrow-hover {
+    transform-origin: center;
+    animation: down-arrow-hover .8s ease-in;
+}
+
+@keyframes down-arrow-hover {
+    0% {
+        transform: scaleX(1);
+    }
+    100% {
+        transform: scaleX(0.7);
+    }
+}
+
 .stars-twinkle {
     animation-name: star-twinkle;
     animation-duration: 1.5s; 
@@ -47,8 +94,12 @@ body {
     animation-delay: 0ms;
 }
 .anim-delay-1 {
-    animation-delay: 500ms;
+    animation-delay: 50ms;
 }
 .anim-delay-2 {
-    animation-delay: 700ms;
+    animation-delay: 100ms;
+}
+
+.anim-delay-3 {
+    animation-delay: 1s;
 }
