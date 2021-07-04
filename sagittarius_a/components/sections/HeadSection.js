@@ -3,7 +3,8 @@ import { AnimatePresence, motion } from "framer-motion"
 
 import BlackHole from '../section_elements/BlackHole'
 import AddStaticStars from '../section_elements/AddStaticStars'
-// import AddMovingStars from '../section_elements/AddMovingStars'
+import DownArrow from '../section_elements/DownArrow'
+import AddMovingStars from '../section_elements/AddMovingStars'
 
 
 const variants = {
@@ -25,6 +26,7 @@ const variants = {
     }
   }
 }
+
 
 function AddLabelsLoop({ texts }) {
   const [index, setIndex] = useState(0)
@@ -64,30 +66,6 @@ function AddLabelsLoop({ texts }) {
         
       </motion.span>
     </AnimatePresence>
-  );
-};
-
-
-function AddLabels({ labelsConfig }) {
-  return (
-    <ul>
-      {
-        labelsConfig.map((config, index) => (
-          <li 
-            key={'blackHoleBullet-' + index}
-            className={'flex gap-3 py-3 pl-3 text-lg md:py-3 animate-wiggle ' + config.delay} 
-            style={{animationDelay: (index % 4)*1000 + 'ms', animationDuration: 5 + 's'}}
-          >
-            <div className="w-1/12 h-full lg:w-12">
-              <config.component />
-            </div>
-            <p className="h-full text-white"> 
-              { config.text } 
-            </p>
-          </li>
-        ))
-      }
-    </ul>
   )
 }
 
@@ -97,16 +75,13 @@ function TextContainer({ textConfig }) {
   return (
     <div className="flex justify-center w-full text-white min-h-64 font-custom1 px-auto min-w-32">
       <div className="max-w-2xl py-3 md:py-10 md:w-6/12">
-        <div className="h-32 p-5 text-xl text-white bg-white rounded-lg bg-opacity-10 lg:w-7/12">
+        <div className="h-32 p-5 text-xl text-white bg-white rounded-md opacity-0 bg-opacity-10 lg:w-7/12 startup-anim" style={{animationDelay: 1 + 's'}}>
           <p>
             { textConfig.titleText }
-          </p>
-          <div className="pt-2 pl-8">
+          </p> 
+          <div className="pt-2 pl-8 opacity-0 startup-anim" style={{animationDelay: 1.5 + 's'}}>
             <AddLabelsLoop texts={textConfig.labels}/>
           </div>
-          {/* <div className="md:pl-8">
-            <AddLabels labelsConfig={textConfig.labels} />
-          </div> */}
         </div>
       </div>
     </div>
@@ -116,33 +91,44 @@ function TextContainer({ textConfig }) {
 
 function HeadSection({ headSectionConfig }) {
   
-  const [windowSize, setWindowSize] = useState(null)
+  const [windowWidth, setWindowWidth] = useState(null)
+  const [windowHeight, setWindowHeight] = useState(null)
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const handleResize = () => setWindowSize(window.innerWidth)
+      const handleResizeWidth = () => setWindowWidth(window.innerWidth)
+      const handleResizeHeight = () => setWindowHeight(window.innerWidth)
       
-      window.addEventListener("resize", handleResize)
-      handleResize()
-      const listenerCleanup = () => window.removeEventListener("resize", handleResize)
+      window.addEventListener("resize", handleResizeWidth)
+      window.addEventListener("resize", handleResizeHeight)
+
+      handleResizeWidth()
+      handleResizeHeight()
+
+      const listenerCleanup = () => {
+        window.removeEventListener("resize", handleResizeWidth)
+        window.removeEventListener("resize", handleResizeHeight)
+      }
       
       return listenerCleanup
     }
   }, [])
 
-  const bhSize = (windowSize && windowSize > 700) ? 700 : windowSize - 150
+  const bhSize = (windowWidth && windowWidth > 700) ? 700 : windowWidth - 150
+
+  const textContainerShow = <TextContainer textConfig={headSectionConfig.text} />
+  const downArrrow = <DownArrow scrollSection={headSectionConfig.scrollSection} />
 
   return (
     <>
       <AddStaticStars {...headSectionConfig.staticStars} />
+      <AddMovingStars numStars={5} windowWidth={windowWidth} windowHeight={windowHeight} />
       <div className="min-h-screen">
-        <BlackHole size={bhSize || 300} cssUnit="px" classes="m-auto w-1/2">
-          <TextContainer textConfig={headSectionConfig.text} />
-        </BlackHole> 
+        <BlackHole size={bhSize || 300} classes="m-auto w-1/2" textContainer={textContainerShow} downArrow={downArrrow} cssUnit="px"/>
       </div>
     </>
   )
 }
 
 
-export default  HeadSection
+export default HeadSection
