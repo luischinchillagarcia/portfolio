@@ -11,13 +11,21 @@ module.exports = {
       'transition-visibility': 'transition-visibility'
     },
     keyframes: {
-      wiggle: {
-        '0%, 100%': { opacity: .3 },
-        '50%': { opacity: 1 },
-      }
+      downArrow: {
+        '0%%': { transform: 'scaleX(1)' },
+        '100%': { transform: 'scaleX(.7)' },
+      },
+      downArrowClick: {
+        '100%': { transform: 'scaleY(.9)' },
+      },
+      startup: {
+        '0%%': { opacity: 0 },
+        '100%': { opacity: 1 },
+      },
     },
     animation: {
-      wiggle: 'wiggle 2s ease-in-out infinite',
+      downArrow: 'downArrow .2s linear forwards',
+      startup: 'startup 2s',
     }
   },
   variants: {
