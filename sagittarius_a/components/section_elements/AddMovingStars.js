@@ -4,13 +4,14 @@ import { motion } from "framer-motion"
 import StaticStar from './StaticStar'
 
 
-function AnimationWrapper({ children, initX=-50, initY=-1, endX=0, endY=0, initAngle=0, endAngle=180, duration=2, delay=0 }) {
+function AnimationWrapper({ children, windowWidth, windowHeight, initAngle=0, endAngle=360, duration=2, delay=0.5 }) {
+
   return (
     <motion.div 
       animate={{ 
         opacity: [0, 1, 1, 0],
-        translateX: [initX + '%', initX + '%', endX + '50%', endX + '50%'],
-        translateY: [initY + 'rem', initY + 'rem', endY + 'rem', endY + '0rem'],
+        translateX: [0 + 'px', 0 + 'px', windowWidth/2 + 'px', windowWidth/2 + 'px'],
+        translateY: [0 + 'px', 0+ 'px', windowHeight/4 + 'px', windowHeight/4 + 'px'],
         rotate: [initAngle, initAngle, endAngle, endAngle],
       }}
       transition={{
@@ -19,7 +20,7 @@ function AnimationWrapper({ children, initX=-50, initY=-1, endX=0, endY=0, initA
         ease: 'linear',
         times: [0, .10, .90, 1],
         repeat: Infinity,
-        repeatDelay: 1,
+        repeatDelay: 0,
       }}
     >
       { children }
@@ -28,7 +29,8 @@ function AnimationWrapper({ children, initX=-50, initY=-1, endX=0, endY=0, initA
 }
 
 
-function AddMovingStars({ numStars, initX=0, xVar=5, initY=-20, yVar=5, size=35, sizeVar=15, opacity=0.8, opacityVar=0.2, delay=1, delayVar=1, duration=4, durationVar=0.4, initAngle=0, initAngleVar=1, endAngle=180, endAngleVar=1 }) {
+function AddMovingStars({ numStars, windowWidth, windowHeight, initX=0, xVar=5, initY=-20, yVar=5, size=35, sizeVar=15, opacity=0.8, opacityVar=0.2, delay=1, 
+    delayVar=1, duration=4, durationVar=0.4, initAngle=0, initAngleVar=1, endAngle=180, endAngleVar=1 }) {
 
   const [positions, setPositions] = useState([])
 
@@ -52,7 +54,7 @@ function AddMovingStars({ numStars, initX=0, xVar=5, initY=-20, yVar=5, size=35,
       pos.push({initX, initY, size, opacity, delay, duration, initAngle, endAngle})
     }
     setPositions(pos)
-  }, []);
+  }, [])
 
   const animationConfig = (config) => { 
     const { initX, initY, initAngle, endAngle, duration, delay } = config
@@ -60,17 +62,19 @@ function AddMovingStars({ numStars, initX=0, xVar=5, initY=-20, yVar=5, size=35,
   }
 
   return (
-    <>
+    <div className="absolute">
+      <div className="relative w-full h-full">
       { 
         positions.map((pos, index) => (
-          <AnimationWrapper {...animationConfig(pos)} key={index}>
+          <AnimationWrapper {...animationConfig(pos)} windowWidth={windowWidth} windowHeight={windowHeight} key={index}>
             <StaticStar 
               key={index} cssUnit="px" classes="absolute" size={pos.size} left={0} top={0} opacity={pos.opacity}
             />
           </AnimationWrapper>
         ))
       }
-    </>
+      </div>
+    </div>
   )
 }
 
