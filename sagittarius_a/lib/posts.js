@@ -1,4 +1,4 @@
-import namedImports from '../posts/namedImports'
+import namedImports from '../content/namedImports'
 
 
 export function getAllPostIds() {
