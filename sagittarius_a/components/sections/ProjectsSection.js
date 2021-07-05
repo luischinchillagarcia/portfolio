@@ -202,20 +202,21 @@ function CardsContainer({ configCards }) {
 
 
 function AddLink({ isExternal, route, text }) {
+  const classes = "w-full px-10 mx-auto py-2 font-bold text-white transition-colors bg-gray-800 rounded-md hover:bg-gray-700"
 
   let link = null
   if (isExternal) {
-    link = <a href={route}>{text}</a>
-    }
+    link = ( 
+      <a href={route} className={classes}>{text}</a>
+    )
+  }
   else {
-    link = <Link href={route}><a> {text} </a></Link>
+    link = <Link href={route}><a className={classes}> {text} </a></Link>
   }
 
   return (
     <>
-      { 
-        link
-      }
+      { link }
     </>
   )
 }
@@ -248,11 +249,10 @@ function Card({ cardConfig }) {
             }
           </div>
       </div>
-      <div className="w-10/12 px-3 mx-auto my-3 sm:w-full">
-          <button className="w-full px-10 py-2 font-bold text-white transition-colors bg-gray-800 rounded-md hover:bg-gray-700">
-            <AddLink isExternal={cardConfig.button.isRouteExternal} route={cardConfig.button.route} text={cardConfig.button.text} > 
-            </AddLink>
-          </button>
+      <div className="w-10/12 mx-auto my-3 px-auto sm:w-full">
+        <div className="flex justify-center text-center">
+          <AddLink isExternal={cardConfig.button.isRouteExternal} route={cardConfig.button.route} text={cardConfig.button.text} /> 
+        </div>
       </div>
   </div>
   )
