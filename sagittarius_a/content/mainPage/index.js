@@ -286,7 +286,7 @@ const projectsConfig = {
             'Motion and physics was done using the React-Three-Fiber framework with ReactJS and NextJS.',
           ],
           tags: ['JavaScript', 'ReactJs', 'NextJS', 'React-Three-Fiber', 'React-Spring', 'HTML', 'CSS'],
-          button: {text: 'Learn More', isRouteExternal: false, route: '/in-progress'}
+          button: {text: 'Learn More', isRouteExternal: true, route: 'https://black-hole-react-three.vercel.app/'}
         },
       ],
     },
@@ -342,6 +342,7 @@ const contactConfig = {
   title: 'Contact Me',
   body: 'I\'m always open for discussions, so feel free to contact me!',
 }
+
 
 export default {
   headSectionConfig,
