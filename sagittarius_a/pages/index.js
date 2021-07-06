@@ -1,4 +1,5 @@
 
+import Head from "next/head"
 import { Element } from 'react-scroll'
 
 import HeadSection from "../components/sections/HeadSection"
@@ -10,11 +11,21 @@ import ContactSection from "../components/sections/ContactSection"
 import configs from '../content/mainPage'
 
 
+const seoConfig = {
+  name: 'Luis Chinchilla-Garcia',
+}
+
+
 
 function HeadContainer() {
   
   return (
     <>
+      <Head>
+        <title>{ seoConfig.name }</title>
+        <link rel="icon" href="/neuron.svg" sizes="16x16" />
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" key="viewport" />
+      </Head>
       <Element name="HeadSection" className="pb-32 HeadSection">
         <HeadSection headSectionConfig={configs.headSectionConfig}  />
       </Element>
