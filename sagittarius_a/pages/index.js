@@ -13,7 +13,8 @@ import configs from '../content/mainPage'
 
 const seoConfig = {
   title: 'Luis Chinchilla-Garcia',
-  description: 'Resume Website'
+  description: 'Resume Website',
+  image: '/neuron.svg'
 }
 
 
@@ -24,11 +25,12 @@ function HeadContainer() {
     <>
       <Head>
         <title>{ seoConfig.title }</title>
-        <link rel="icon" href="/neuron.svg" sizes="16x16" />
+        <link rel="icon" href={ seoConfig.image } sizes="16x16" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" key="viewport" />
         <meta property="og:site_name" content={ seoConfig.title } />
         <meta property="og:title" content={ seoConfig.title } key="title" />
         <meta property="og:description" content={ seoConfig.description } />
+        <meta property="og:image" content={ seoConfig.image } />
       </Head>
       <Element name="HeadSection" className="pb-32 HeadSection">
         <HeadSection headSectionConfig={configs.headSectionConfig}  />
