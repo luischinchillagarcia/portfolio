@@ -4,7 +4,7 @@ import Link from 'next/link'
 function ArtAsset() {
   return (
     <>
-      {/* <svg width="450" height="338" viewBox="0 0 450 338" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg width="450" height="338" viewBox="0 0 450 338" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g clipPath="url(#clip0)">
           <path
             d="M321.749 231.118C321.749 261.706 304.982 272.387 284.299 272.387C263.616 272.387 246.849 261.706 246.849 231.118C246.849 200.529 284.299 161.616 284.299 161.616C284.299 161.616 321.749 200.529 321.749 231.118Z"
@@ -94,7 +94,7 @@ function ArtAsset() {
             <rect width="450" height="338" fill="white" />
           </clipPath>
         </defs>
-      </svg> */}
+      </svg>
     </>
   )
 }

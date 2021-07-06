@@ -1,4 +1,4 @@
-import DefaultSection from '../components/utilities/DefaultPages'
+import DefaultSection from '../components/utilities/DefaultBlock'
 
 
 const inProgressConfig = {
