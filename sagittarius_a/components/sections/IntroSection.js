@@ -50,15 +50,11 @@ function IntroRight({ textConfig }) {
           { subtitles }
         </div>
         {
-          textConfig.text.map((paragraph, index) => (
+          textConfig.introText.map((paragraph, index) => (
             <p key={'intro-par-' + index} className="mt-5"> { paragraph } </p>
           ))
         }
-        <AnimatedButtonWithScroll scrollSection={textConfig.button.scroll}>
-          <p className="py-3 mt-6 text-white border border-white rounded-md hover:bg-green-700 hover:bg-opacity-20 px-7">
-            { textConfig.button.text }
-          </p>
-        </AnimatedButtonWithScroll>
+        <IconButtons textConfig={textConfig} />
       </div>
     </div>
   )
@@ -96,6 +92,29 @@ function AnimatedButtonWithScroll({ scrollSection, children  }) {
         { children }
       </AddAnimationScroll>
     </AddAnimationButton>
+  )
+}
+
+
+function IconButtons({ textConfig }) {
+
+  return (
+    <div className="flex flex-col w-full gap-2 sm:flex-row">
+      <AnimatedButtonWithScroll scrollSection={textConfig.button.scroll}>
+        <p className="py-3 mt-6 text-white border border-white rounded-md hover:bg-green-700 hover:bg-opacity-20 px-7">
+          { textConfig.button.text }
+        </p>
+      </AnimatedButtonWithScroll>
+      {
+        textConfig.iconButtons.map((icon, index) => (
+          <AddAnimationButton key={'intro-icons-' + index} >
+            <a href={icon.href} className="block py-3 mt-6 border border-white rounded-md hover:bg-green-700 hover:bg-opacity-20 px-7">
+              <img src={icon.scrPaths} alt={icon.scrAlts} />
+            </a>
+          </AddAnimationButton>
+        ))
+      }
+    </div>
   )
 }
 

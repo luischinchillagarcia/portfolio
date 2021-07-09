@@ -37,7 +37,7 @@ const introSectionConfig = {
     title: 'Luis G. Chinchilla-Garcia',
     subtitle: 'Data Engineer | Machine Learning Engineer | Data Science',
     subtitles: ['Data Engineer', 'Machine Learning Engineer', 'Data Science'],
-    text:[ 
+    introText:[ 
       `I am a Machine Learning Engineer who also delves into the worlds of Data Engineering and Web Development. 
       Currently, I am a Data Engineer at Red Bull, where I focus on creating scalable end-to-end machine learning 
       models for Recommender Systems.`,
@@ -46,6 +46,10 @@ const introSectionConfig = {
       (details below).`
     ],
     button: {text: 'See Experience', scroll: 'ExperienceSection'},
+    iconButtons: [
+      {scrPaths: '/linkedin.svg', scrAlts: 'linkedin', href: 'https://www.linkedin.com/in/luisgchinchilla-garcia/'},
+      {scrPaths: '/github.svg',   scrAlts: 'github'  , href: 'https://github.com/luischinchillagarcia/'           },
+    ],
   },
   images: [
     '/planet.svg',

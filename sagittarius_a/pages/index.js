@@ -14,7 +14,7 @@ import configs from '../content/mainPage'
 const seoConfig = {
   title: 'Luis Chinchilla-Garcia',
   description: 'Resume Website',
-  image: '/neuron.svg'
+  image: '/og_image.svg'
 }
 
 
