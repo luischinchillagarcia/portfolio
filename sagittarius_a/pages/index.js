@@ -14,6 +14,7 @@ import configs from '../content/mainPage'
 const seoConfig = {
   title: 'Luis Chinchilla-Garcia',
   description: 'Resume Website',
+  favicon: '/neuron.svg',
   image: '/og_image.svg'
 }
 
@@ -25,7 +26,7 @@ function HeadContainer() {
     <>
       <Head>
         <title>{ seoConfig.title }</title>
-        <link rel="icon" href={ seoConfig.image } sizes="16x16" />
+        <link rel="icon" href={ seoConfig.favicon } sizes="16x16" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" key="viewport" />
         <meta property="og:site_name" content={ seoConfig.title } />
         <meta property="og:title" content={ seoConfig.title } key="title" />
