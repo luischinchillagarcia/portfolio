@@ -28,10 +28,10 @@ function HeadContainer() {
         <title>{ seoConfig.title }</title>
         <link rel="icon" href={ seoConfig.favicon } sizes="16x16" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" key="viewport" />
-        <meta property="og:site_name" content={ seoConfig.title } />
-        <meta property="og:title" content={ seoConfig.title } key="title" />
-        <meta property="og:description" content={ seoConfig.description } />
-        <meta property="og:image" content={ seoConfig.image } />
+        <meta property="og:site_name" name="og:site_name" content={ seoConfig.title } />
+        <meta property="og:title" name="og:title" content={ seoConfig.title } key="title" />
+        <meta property="og:description" name="og:description" content={ seoConfig.description } />
+        <meta property="og:image" name="og:image" content={ seoConfig.image } />
       </Head>
       <Element name="HeadSection" className="pb-32 HeadSection">
         <HeadSection headSectionConfig={configs.headSectionConfig}  />
