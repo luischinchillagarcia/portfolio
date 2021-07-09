@@ -15,7 +15,7 @@ const seoConfig = {
   title: 'Luis Chinchilla-Garcia',
   description: 'Resume Website',
   favicon: '/neuron.svg',
-  image: '/og_image.svg'
+  image: 'https://www.luischinchilla-garcia.com/og_image.png'
 }
 
 
