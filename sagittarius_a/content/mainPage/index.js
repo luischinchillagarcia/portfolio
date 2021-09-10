@@ -38,8 +38,8 @@ const introSectionConfig = {
     subtitle: 'Data Engineer | Machine Learning Engineer | Data Science',
     subtitles: ['Data Engineer', 'Machine Learning Engineer', 'Data Science'],
     introText:[ 
-      `I am a Machine Learning Engineer who also delves into the worlds of Data Engineering and Web Development. 
-      Currently, I am a Data Engineer at Red Bull, where I focus on creating scalable end-to-end machine learning 
+      `I am a Data Scientist and Machine Learning Engineer who also delves into the worlds of Data Engineering and Web Development. 
+      Currently, I am a Lead Data Scientist at NBC Universal, where I focus on creating scalable end-to-end machine learning 
       models for Recommender Systems.`,
       `I graduated from the University of California, Los Angeles with a BS in Astrophysics. During that time, I 
       completed four years of research as part of a research fellowship and was also a co author in a paper 
